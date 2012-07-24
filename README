@@ -1,0 +1,38 @@
+Flask-Weirds
+====================
+
+Flask Framework (see http://flask.pocoo.org/) extension to create web-application
+servers to provide WEIRDS services.
+
+* http://datatracker.ietf.org/wg/weirds/
+
+This extension is currently in development and does not pretend to be a complete
+implementation of current state of proposals that IETF working group is discussing.
+
+Typical use similar to the following sudo-code:
+
+    class ObjectModel(flask.ext.weirds.WeirdsDataModel):
+        def __init__(self, name):
+            self.name = find_magic_object(name)
+        
+        def public_data(self):
+            return { 'name' : self.name}
+    
+    app = flask.ext.weirds.FlaskWeirdsApp(__name__)
+    
+    @app.route('/object/<name>')
+    def object(name):
+      return ObjectModel(name),
+
+
+You may find similar bits of code in example, provided with this package,
+weirdsexample.py.
+
+
+License
+--------------------
+
+Copyright (c) 2012, Dynamic Network Services, Inc. All rights reserved.
+
+See the included LICENSE file for licensing information.
+
