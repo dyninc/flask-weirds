@@ -95,9 +95,9 @@ def fakedomain(domainname):
 
 if __name__ == '__main__':
 	# This is startup procedure when we run this code from command line.
-	# We can also use "uwsgi -w weirdsapp --callable app --http 127.0.0.1:5000"
+	# We can also use "uwsgi -w weirdsexample --callable app --http 0.0.0.0:5000"
 	# to achieve similar result and employ advanced HTTP engine
-	print "Running the app, you should be able to query http://localhost:5000/fakedomain/example.org.json"
+	print "Running the app, you should be able to query http://hostname:5000/fakedomain/example.org.json"
 	print "..."
 	print "Try also .net .edu .info and other domains, try use no \".json\" part and replace it to XML :)"
 	app.run(host='0.0.0.0', port=5000, debug=("--debug" in sys.argv))
