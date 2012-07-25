@@ -1,13 +1,14 @@
 Flask-Weirds
 ====================
 
-Flask Framework (see http://flask.pocoo.org/) extension to create web-application
-servers to provide WEIRDS services.
+Flask Framework (see http://flask.pocoo.org/) extension to create
+web-application servers to provide WEIRDS services.
 
 * http://datatracker.ietf.org/wg/weirds/
 
-This extension is currently in development and does not pretend to be a complete
-implementation of current state of proposals that IETF working group is discussing.
+This extension is currently in development and does not pretend to be a
+complete implementation of current state of proposals that IETF working
+group is discussing.
 
 Typical use similar to the following sudo-code:
 
@@ -25,8 +26,37 @@ Typical use similar to the following sudo-code:
       return ObjectModel(name),
 
 
-You may find similar bits of code in example, provided with this package,
-weirdsexample.py.
+
+Example
+--------------------
+
+You may find bits of code similar to concepts above in the example
+provided with this package "weirdsexample.py". You may create your own
+WEIRDS service copying an example and adding new "data producing" code.
+
+To run example (or your own service) you may:
+
+* execute python script as is and use  http://localhost:5000/
+  as base URI of your service (bind address 0.0.0.0:5000 is currently
+  hard-coded in script)
+* use WSGI application container, such as uwsgi:
+  uwsgi -w weirdsexample --callable app --http 0.0.0.0:5000
+  this would allow you to control more web-application runtime
+  parameters
+
+To run SSL-protected service you may use front-end Web server, either
+Apache or Nginx is a simpliest choice. You may consider switching the
+app to use fastcgi or uwsgi communication with frontend.
+
+
+Installation
+--------------------
+
+It's not quite recommended to install this library because it's likely
+going thru lots of changes. Example is designed in a way to use current
+directory to be added to python's module search path and can be run as
+is.
+
 
 
 License
