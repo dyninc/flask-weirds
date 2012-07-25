@@ -26,7 +26,6 @@ Typical use similar to the following sudo-code:
       return ObjectModel(name),
 
 
-
 Example
 --------------------
 
@@ -47,6 +46,23 @@ To run example (or your own service) you may:
 To run SSL-protected service you may use front-end Web server, either
 Apache or Nginx is a simpliest choice. You may consider switching the
 app to use fastcgi or uwsgi communication with frontend.
+
+
+Features so far
+--------------------
+
+Idea behind this flask extension is to demonstrate that there could be
+common code that might be re-used to create WEIRDS services.
+
+There is few things it might do right now:
+
+* presenting same data structure as XML and JSON
+* automatically replace relative URIs to absolute ones
+ (only in "uris" section so far as seen in proposed
+  draft-newton-et-al-weirds-rir-json-response-01)
+* generating "extended dataset" for authorized clients
+ (not yet added to an example code)
+
 
 
 Installation
