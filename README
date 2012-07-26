@@ -73,6 +73,8 @@ going thru lots of changes. Example is designed in a way to use current
 directory to be added to python's module search path and can be run as
 is. You may, however, use setup.py.risk to install flask_weirds module.
 
+You obiously need  flask (http://flask.pocoo.org/docs/installation/) to
+run this code.
 
 
 License
