@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
     flask_weirds.weirdsmodel
     =============================
@@ -12,20 +13,25 @@
 
 """
 
+
 class WeirdsDataError(RuntimeError):
+
 	"""Base exception class to raise errors in case if data operations could not be completed"""
+
 	pass
+
 
 class WeirdsDataModel(object):
 	"""This class defines an Interface to return data from weirdsapp routes"""
 	def public_data(self):
 		return {}
-	
-	def expand_data(self):
-		raise WeirdsDataError("This is abstract method to prevent basic WeirdsDataModel to be used as WeirdsExpandMixin")
+
+	def data_expand(self, data):
+		return data
 
 
 class WeirdsExpandMixin:
+
 	"""This mixin is used to modify normal data objects with additional data.
 	Usage:
 	
@@ -44,19 +50,18 @@ class WeirdsExpandMixin:
 	
 	This design decision is made to abstract "permissioning" from actual "data delivery".
 	"""
+
 	def push_expand(self, expanditem):
 		expandlist = getattr(self, '_expandlist', [])
 		try:
 			newsub = getattr(self, 'expand_{0}'.format(expanditem))
 		except:
-			raise WeirdsDataError("Cannot apply expand_{0} to object of this type".format(expanditem))
+			raise WeirdsDataError('Cannot apply expand_{0} to object of this type'.format(expanditem))
 		expandlist.append(newsub)
 		self._expandlist = expandlist
-	
+
 	def data_expand(self, data):
 		expandlist = getattr(self, '_expandlist', [])
 		for sub in expandlist:
 			sub(data)
 		return data
-
-
