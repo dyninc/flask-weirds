@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 """
     weirdsexample
     ================
@@ -11,46 +12,38 @@
     
 """
 
-
-import flask.ext.weirds
+import flask.ext.weirds as weirds
 import sys
 
-
 # Error messages encoded as tuple {'error':'error info', ...}, "HTTP response code"
-ERR_PATH_NOT_FOUND = ({'error': 'path not found'}, "404 Not Found")
-ERR_OBJECT_NOT_FOUND = ({'error': 'object not found'}, "404 Not Found")
-ERR_OUTAGE = ({'error': 'our systems are not functioninig properly'}, "500 Internal Server Error")
 
-
+ERR_PATH_NOT_FOUND = ({'error': 'path not found'}, '400 Bad Request')
+ERR_OBJECT_NOT_FOUND = ({'error': 'object not found'}, '404 Not Found')
+ERR_OUTAGE = ({'error': 'our systems are not functioninig properly'}, '500 Internal Server Error')
 
 # see module for details about overloads to Flask in that module and tricks we employ
-app = flask.ext.weirds.FlaskWeirdsApp(__name__)
-app.config.update(BASE_URI = "http://weirdshost.example.org")
+
+app = weirds.FlaskWeirdsApp(__name__)
+app.config.update(BASE_URI='http://weirdshost.example.org')
+
 
 ## This is fake Data Model, do not use it in your application:
-class DomainFakeModel(flask.ext.weirds.WeirdsDataModel):
+
+class DomainFakeModel(weirds.WeirdsDataModel):
 	def __init__(self, name):
 		self.name = name.lower()
-	
+
 	def public_data(self):
-		return {
-			"type" : "fake object",
-			"name" : self.name,
-			"uris" : [ {
-					"ref" : "registrar",
-					"uri" : "/registrar/someid"
-				}
-			]
-		}
+		return weirds.domain(None, self.name)
 
 
 def find_fake_domain(domainname):
 	try:
-		name, rest = domainname.split(".", 1)
-		assert name == "example" and rest in ("org", "com", "net", "edu")
+		(name, rest) = domainname.split('.', 1)
+		assert name == 'example' and rest in ('org', 'com', 'net', 'edu')
 	except:
 		return None
-	
+
 	return DomainFakeModel(domainname)
 
 
@@ -66,11 +59,10 @@ def find_fake_domain(domainname):
 ##
 ## and so on...
 
-
-
 @app.errorhandler(404)
 def notfound(dummy_e):
 	return ERR_PATH_NOT_FOUND
+
 
 @app.errorhandler(500)
 def crash(dummy_e):
@@ -84,35 +76,31 @@ def crash(dummy_e):
 #  list context we must not omit trailing comma in those "return" statements that succeed
 #
 
-
-@app.route("/fakedomain/<domainname>")
+@app.route('/fakedomain/<domainname>')
 def fakedomain(domainname):
 	domain = find_fake_domain(domainname)
 	if domain is None:
 		return ERR_OBJECT_NOT_FOUND
-	return domain,
-
+	return (domain, )
 
 if __name__ == '__main__':
+
 	# This is startup procedure when we run this code from command line.
 	# We can also use "uwsgi -w weirdsexample --callable app --http 0.0.0.0:5000"
 	# to achieve similar result and employ advanced HTTP engine
-	print "Running the app, you should be able to query http://hostname:5000/fakedomain/example.org.json"
-	print "..."
-	print "Try also .net .edu .info and other domains, try use no \".json\" part and replace it to XML :)"
-	app.run(host='0.0.0.0', port=5000, debug=("--debug" in sys.argv))
-	
-	
-	
-	
+
+	print 'Running the app, you should be able to query http://hostname:5000/fakedomain/example.org'
+	print '...'
+	print 'Try also .net .edu .info and other domains :)'
+	app.run(host='0.0.0.0', port=5000, debug='--debug' in sys.argv)
+
 	# Notes:
 	# 1. see flask doc about "debug=True" mode
 	# 2. you can also use fcgi or uwsgi runners, keyword "werkzeug" (that's
-	#	lib that flask uses) will help you google for instructions 
+	# lib that flask uses) will help you google for instructions
 	#   (run uwsgi --help to change command line above to uwsgi or fastcgi
-	#	if you like uwsgi as much as I do)
-	# 3. I like uwsgi that's why I don't put host/port to config so far... 
-	#	I'll check if I can address this in better way later (I think I should)
+	# if you like uwsgi as much as I do)
+	# 3. I like uwsgi that's why I don't put host/port to config so far...
+	# I'll check if I can address this in better way later (I think I should)
 	#
 	# You need nginx or other frontend to react to Accept: text/xml and use .xml by default
-
