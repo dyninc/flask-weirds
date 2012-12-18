@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 """
     Flask-Weirds
     ====================
@@ -25,28 +26,27 @@
     weirdsexample.py.
 """
 
-
 from setuptools import setup
 setup(
-    name="Flask-Weirds",
-    version='1.0',
-    license="BSD",
-    author="Dyn Inc",
-    author_email="hello@dyn.com",
-    description="Flask extension to create WEIRDS applications.",
-    long_description=__doc__,
-    packages=['flask_weirds'],
-    include_package_data=True,
-    zip_safe=False,
-    platforms='any',
-    install_requires=['Flask'],
-    classifiers=[
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Topic :: Software Development :: Libraries :: Python Modules'
-    ]
-)
+	name='Flask-Weirds',
+	version='1.0',
+	license='BSD',
+	author='Dyn Inc',
+	author_email='hello@dyn.com',
+	description='Flask extension to create WEIRDS applications.',
+	long_description=__doc__,
+	packages=['flask_weirds'],
+	include_package_data=True,
+	zip_safe=False,
+	platforms='any',
+	install_requires=['Flask'],
+	classifiers=[
+		'Environment :: Web Environment',
+		'Intended Audience :: Developers',
+		'License :: OSI Approved :: BSD License',
+		'Operating System :: OS Independent',
+		'Programming Language :: Python',
+		'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
+		'Topic :: Software Development :: Libraries :: Python Modules',
+		],
+	)
