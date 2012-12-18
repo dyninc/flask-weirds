@@ -29,7 +29,7 @@ class WeirdsResponse(Response):
 	"""Special response class to make WEIRDS service
 	magic after we have data prepared in python dict"""
 
-	server = 'DynWEIRDS 0.1'
+	server = 'DynWEIRDS 0.2'
 
 	def __init__(self, data, *args, **kw):
 		if hasattr(data, 'public_data'):
