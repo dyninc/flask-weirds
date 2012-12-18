@@ -1,4 +1,6 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
+
 """
     flask.ext.weirds
     ============================
@@ -15,8 +17,24 @@
     See the included LICENSE file for licensing information.
 
 """
+
+from flask.ext.weirds.objects import *
 from flask.ext.weirds.weirdsapp import *
 from flask.ext.weirds.weirdsmodel import *
 
-
-__all__ = ['DynWeirdsResponse', 'FlaskWeirdsApp', 'WeirdsExpandMixin', 'WeirdsDataModel']
+__all__ = [
+	'DynWeirdsResponse',
+	'FlaskWeirdsApp',
+	'WeirdsExpandMixin',
+	'WeirdsDataModel',
+	'rdapConformance',
+	'notice',
+	'link',
+	'entity',
+	'nameserver',
+	'delegationKey',
+	'domain',
+	'ip',
+	'autnum',
+	'errorResponse',
+	]
