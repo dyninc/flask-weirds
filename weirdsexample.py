@@ -18,9 +18,10 @@ import sys
 
 # Error messages encoded as tuple {'error':'error info', ...}, "HTTP response code"
 
-ERR_PATH_NOT_FOUND = ( weirds.WeirdsError(400, "Bad Request", "Invalid object type or path in your request."), '400 Bad Request' )
-ERR_OBJECT_NOT_FOUND = ( weirds.WeirdsError(404, "Not Found", "Requested object was not found in our database."), '404 Not Found' )
-ERR_OUTAGE = ( weirds.WeirdsError(500, "Internal Error", "Our systems are not functioning properly at the moment."), '500 Internal Server Error' )
+ERR_PATH_NOT_FOUND = ( weirds.WeirdsError(0xff00, "Bad Request", "Invalid object type or path in your request."), '400 Bad Request' )
+ERR_OBJECT_NOT_FOUND = ( weirds.WeirdsError(0xff01, "Not Found", "Requested object was not found in our database."), '404 Not Found' )
+ERR_OUTAGE = ( weirds.WeirdsError(0xff01, "Internal Error", "Our systems are not functioning properly at the moment."), '500 Internal Server Error' )
+ERR_AUTHINVALID = ( weirds.WeirdsError(0xff03, "Auth Invalid", "Please use correct username and password to see authenticated request response."), '401 Auth Required' )
 
 # see module for details about overloads to Flask in that module and tricks we employ
 
@@ -37,6 +38,11 @@ class DomainFakeModel(weirds.WeirdsDataModel):
 
 	def public_data(self):
 		return weirds.domain(None, self.name)
+
+	def expand_entities(self, data):
+		data['entities'] = weirds.entity(None, "Internet Assigned Numbers Authority")
+		return data
+
 
 
 def find_fake_domain(domainname):
@@ -71,6 +77,10 @@ def crash(dummy_e):
 	return ERR_OUTAGE
 
 
+def check_auth(username, password):
+    return username == 'example' and password == 'password'
+
+
 ## WARNING
 #
 #  Flask "route" subs below should always return a tuple of DICT, HTTP_ANSWER, and then some.
@@ -83,6 +93,11 @@ def fakedomain(domainname):
 	domain = find_fake_domain(domainname)
 	if domain is None:
 		return ERR_OBJECT_NOT_FOUND
+	auth = flask.request.authorization
+	if auth:
+		if not check_auth(auth.username, auth.password):
+			return ERR_AUTHINVALID
+		domain.push_expand('entities')
 	return domain
 
 if __name__ == '__main__':
@@ -93,7 +108,7 @@ if __name__ == '__main__':
 
 	print 'Running the app, you should be able to query http://hostname:5000/fakedomain/example.org'
 	print '...'
-	print 'Try also .net .edu .info and other domains :)'
+	print 'Try also .net .edu .info and other domains and later with "example:password" authentication.'
 	app.run(host='0.0.0.0', port=5000, debug='--debug' in sys.argv)
 
 	# Notes:
