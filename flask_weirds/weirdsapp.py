@@ -25,14 +25,14 @@ except ImportError:
 	import simplejson as json
 
 MIME_TYPE = 'application/rdap'
-
+SERVER_VERSION = '1.1.0'
 
 class WeirdsResponse(flask.Response):
 
 	"""Special response class to make WEIRDS service
 	magic after we have data prepared in python dict"""
 
-	server = 'DynWEIRDS 0.2'
+	server = 'DynWEIRDS ' + SERVER_VERSION
 
 	def __init__(self, data, *args, **kw):
 		public_data = data.data_expand(data.public_data())

@@ -18,9 +18,9 @@ import sys
 
 # Error messages encoded as tuple {'error':'error info', ...}, "HTTP response code"
 
-ERR_PATH_NOT_FOUND = ("{'error': 'path not found'}\n", '400 Bad Request')
-ERR_OBJECT_NOT_FOUND = ("{'error': 'object not found'}\n", '404 Not Found')
-ERR_OUTAGE = ("{'error': 'our systems are not functioninig properly'}\n", '500 Internal Server Error')
+ERR_PATH_NOT_FOUND = ( weirds.WeirdsError(400, "Bad Request", "Invalid object type or path in your request."), '400 Bad Request' )
+ERR_OBJECT_NOT_FOUND = ( weirds.WeirdsError(404, "Not Found", "Requested object was not found in our database."), '404 Not Found' )
+ERR_OUTAGE = ( weirds.WeirdsError(500, "Internal Error", "Our systems are not functioning properly at the moment."), '500 Internal Server Error' )
 
 # see module for details about overloads to Flask in that module and tricks we employ
 

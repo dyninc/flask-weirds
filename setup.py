@@ -26,10 +26,11 @@
     weirdsexample.py.
 """
 
+from flask_weirds.weirdsapp import SERVER_VERSION
 from setuptools import setup
 setup(
 	name='Flask-Weirds',
-	version='1.1.0',
+	version=SERVER_VERSION,
 	license='BSD',
 	author='Dyn Inc',
 	author_email='hello@dyn.com',

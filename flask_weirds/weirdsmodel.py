@@ -14,13 +14,7 @@
 
 """
 
-
-class WeirdsDataError(RuntimeError):
-
-	"""Base exception class to raise errors in case if data operations could not be completed"""
-
-	pass
-
+from objects import errorResponse
 
 class WeirdsDataModel(object):
 
@@ -43,3 +37,14 @@ class WeirdsDataModel(object):
 		for sub in expandlist:
 			sub(data)
 		return data
+
+
+class WeirdsError(WeirdsDataModel):
+	def __init__(self, errorCode, title=None, description=None, **kw):
+		self.data = errorResponse(errorCode, title, description, **kw)
+
+	def public_data(self):
+		return self.data
+
+
+

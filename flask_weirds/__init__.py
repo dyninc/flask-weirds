@@ -26,6 +26,7 @@ __all__ = [
 	'WeirdsResponse',
 	'WeirdsApp',
 	'WeirdsDataModel',
+	'WeirdsError',
 	'rdapConformance',
 	'notice',
 	'link',
