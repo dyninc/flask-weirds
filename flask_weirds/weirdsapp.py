@@ -52,12 +52,10 @@ class WeirdsApp(flask.Flask):
 	It will generate WeirdsResponse for those cases, hiding as normal App otherwise.
 	"""
 
-	response_class = WeirdsResponse
-
 	def make_response(self, rv):
 		if isinstance(rv, WeirdsDataModel):
-			return self.response_class(rv)
+			return WeirdsResponse(rv)
 		elif isinstance(rv, (list, tuple)) and len(rv) > 0 and isinstance(rv[0], WeirdsDataModel):
-			return self.response_class(*rv)
+			return WeirdsResponse(*rv)
 		else:
 			return flask.Flask.make_response(self, rv)

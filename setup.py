@@ -29,7 +29,7 @@
 from setuptools import setup
 setup(
 	name='Flask-Weirds',
-	version='1.0',
+	version='1.1.0',
 	license='BSD',
 	author='Dyn Inc',
 	author_email='hello@dyn.com',
