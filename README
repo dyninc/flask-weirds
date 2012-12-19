@@ -56,10 +56,9 @@ common code that might be re-used to create WEIRDS services.
 
 There is few things it might do right now:
 
-* presenting same data structure as XML and JSON
+* presenting same data structure as JSON, mime-type application/rdap
 * automatically replace relative URIs to absolute ones
- (only in "uris" section so far as seen in proposed
-  draft-newton-et-al-weirds-rir-json-response-01)
+ (only in "links" section so far)
 * generating "extended dataset" for authorized clients
  (not yet added to an example code)
 
@@ -68,10 +67,12 @@ There is few things it might do right now:
 Installation
 --------------------
 
-It's not quite recommended to install this library because it's likely
-going thru lots of changes. Example is designed in a way to use current
-directory to be added to python's module search path and can be run as
-is. You may, however, use setup.py.risk to install flask_weirds module.
+It's not quite recommended to install this library yet because it's 
+likely to be going through lots of changes in near future. Example 
+is designed in a way to use current directory to be added to 
+python's module search path and can be run as is. 
+
+You may, however, use setup.py to install flask_weirds lib.
 
 You obiously need  flask (http://flask.pocoo.org/docs/installation/) to
 run this code.
