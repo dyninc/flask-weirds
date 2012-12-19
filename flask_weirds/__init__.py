@@ -23,9 +23,8 @@ from flask.ext.weirds.weirdsapp import *
 from flask.ext.weirds.weirdsmodel import *
 
 __all__ = [
-	'DynWeirdsResponse',
-	'FlaskWeirdsApp',
-	'WeirdsExpandMixin',
+	'WeirdsResponse',
+	'WeirdsApp',
 	'WeirdsDataModel',
 	'rdapConformance',
 	'notice',
