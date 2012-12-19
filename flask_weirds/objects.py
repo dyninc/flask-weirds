@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 """
@@ -90,13 +91,13 @@ def link(value, rel=None, tp=None, href='<<<same as value>>>'):
 def entity(
 	handle,
 	entityNames,
-	status = None,
-	roles = None,
-	postalAddress = None,
-	emails = None,
-	phones = None,
-	remarks = None,
-	links = None,
+	status=None,
+	roles=None,
+	postalAddress=None,
+	emails=None,
+	phones=None,
+	remarks=None,
+	links=None,
 	**kw
 	):
 	"""This object class represents the information of organizations,
@@ -139,10 +140,10 @@ def entity(
 def nameserver(
 	handle,
 	name,
-	status = None,
-	ipAddresses = None,
-	remarks = None,
-	links = None,
+	status=None,
+	ipAddresses=None,
+	remarks=None,
+	links=None,
 	**kw
 	):
 	"""The nameserver object class is used by both RIRs and DNRs.
@@ -187,13 +188,13 @@ def delegationKey(algorithm, digest, digestType, keyTag):
 def domain(
 	handle,
 	name,
-	variants = None,
-	status = None,
-	nameservers = None,
-	entities = None,
-	delegationKeys = None,
-	remarks = None,
-	links = None,
+	variants=None,
+	status=None,
+	nameservers=None,
+	entities=None,
+	delegationKeys=None,
+	remarks=None,
+	links=None,
 	**kw
 	):
 	"""The domain object class represents a DNS name and point of
@@ -231,11 +232,11 @@ def ip(
 	handle,
 	startAddress,
 	endAddress,
-	name = None,
-	description = None,
-	remarks = None,
-	links = None,
-	entities = None,
+	name=None,
+	description=None,
+	remarks=None,
+	links=None,
+	entities=None,
 	**kw
 	):
 	"""The IP Network object class models IP network registrations found in RIRs and is the 
@@ -269,11 +270,11 @@ def autnum(
 	handle,
 	startAutnum,
 	endAutnum,
-	name = None,
-	description = None,
-	remarks = None,
-	links = None,
-	entities = None,
+	name=None,
+	description=None,
+	remarks=None,
+	links=None,
+	entities=None,
 	**kw
 	):
 	"""The Autonomous System Number (autnum) object class models 
@@ -304,7 +305,7 @@ def autnum(
 	return _convertAndAdd(ret, ['handle', 'startAutnum', 'endAutnum', 'name'], kw)
 
 
-def errorResponse(errorCode, title = None, description = None, **kw):
+def errorResponse(errorCode, title=None, description=None, **kw):
 	"""The basic structure of that response is an object class containing an error code number.
 	:param errorCode: integer number signifying an error condition
 	:param title: string value describing an error  
