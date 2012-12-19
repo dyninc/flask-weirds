@@ -28,7 +28,7 @@ class WeirdsDataModel(object):
 		try:
 			newsub = getattr(self, 'expand_{0}'.format(expanditem))
 		except:
-			raise WeirdsDataError('Cannot apply expand_{0} to object of this type'.format(expanditem))
+			raise RuntimeError('Cannot apply expand_{0} to object of class {1}'.format(expanditem, self.__class__))
 		expandlist.append(newsub)
 		self._expandlist = expandlist
 
