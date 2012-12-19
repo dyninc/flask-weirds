@@ -12,24 +12,26 @@
     
 """
 
+import flask
 import flask.ext.weirds as weirds
 import sys
 
 # Error messages encoded as tuple {'error':'error info', ...}, "HTTP response code"
 
-ERR_PATH_NOT_FOUND = ({'error': 'path not found'}, '400 Bad Request')
-ERR_OBJECT_NOT_FOUND = ({'error': 'object not found'}, '404 Not Found')
-ERR_OUTAGE = ({'error': 'our systems are not functioninig properly'}, '500 Internal Server Error')
+ERR_PATH_NOT_FOUND = ("{'error': 'path not found'}\n", '400 Bad Request')
+ERR_OBJECT_NOT_FOUND = ("{'error': 'object not found'}\n", '404 Not Found')
+ERR_OUTAGE = ("{'error': 'our systems are not functioninig properly'}\n", '500 Internal Server Error')
 
 # see module for details about overloads to Flask in that module and tricks we employ
 
-app = weirds.FlaskWeirdsApp(__name__)
+app = weirds.WeirdsApp(__name__)
 app.config.update(BASE_URI='http://weirdshost.example.org')
 
 
 ## This is fake Data Model, do not use it in your application:
 
 class DomainFakeModel(weirds.WeirdsDataModel):
+
 	def __init__(self, name):
 		self.name = name.lower()
 
@@ -81,7 +83,7 @@ def fakedomain(domainname):
 	domain = find_fake_domain(domainname)
 	if domain is None:
 		return ERR_OBJECT_NOT_FOUND
-	return (domain, )
+	return domain
 
 if __name__ == '__main__':
 
