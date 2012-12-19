@@ -18,10 +18,10 @@ import sys
 
 # Error messages encoded as tuple {'error':'error info', ...}, "HTTP response code"
 
-ERR_PATH_NOT_FOUND = ( weirds.WeirdsError(0xff00, "Bad Request", "Invalid object type or path in your request."), '400 Bad Request' )
-ERR_OBJECT_NOT_FOUND = ( weirds.WeirdsError(0xff01, "Not Found", "Requested object was not found in our database."), '404 Not Found' )
-ERR_OUTAGE = ( weirds.WeirdsError(0xff01, "Internal Error", "Our systems are not functioning properly at the moment."), '500 Internal Server Error' )
-ERR_AUTHINVALID = ( weirds.WeirdsError(0xff03, "Auth Invalid", "Please use correct username and password to see authenticated request response."), '401 Auth Required' )
+ERR_PATH_NOT_FOUND = (weirds.WeirdsError(0xff00, 'Bad Request', 'Invalid object type or path in your request.'), '400 Bad Request')
+ERR_OBJECT_NOT_FOUND = (weirds.WeirdsError(0xff01, 'Not Found', 'Requested object was not found in our database.'), '404 Not Found')
+ERR_OUTAGE = (weirds.WeirdsError(0xff01, 'Internal Error', 'Our systems are not functioning properly at the moment.'), '500 Internal Server Error')
+ERR_AUTHINVALID = (weirds.WeirdsError(0xff03, 'Auth Invalid', 'Please use correct username and password to see authenticated request response.'), '401 Auth Required')
 
 # see module for details about overloads to Flask in that module and tricks we employ
 
@@ -40,9 +40,8 @@ class DomainFakeModel(weirds.WeirdsDataModel):
 		return weirds.domain(None, self.name)
 
 	def expand_entities(self, data):
-		data['entities'] = weirds.entity(None, "Internet Assigned Numbers Authority")
+		data['entities'] = weirds.entity(None, 'Internet Assigned Numbers Authority')
 		return data
-
 
 
 def find_fake_domain(domainname):
@@ -78,7 +77,7 @@ def crash(dummy_e):
 
 
 def check_auth(username, password):
-    return username == 'example' and password == 'password'
+	return username == 'example' and password == 'password'
 
 
 ## WARNING

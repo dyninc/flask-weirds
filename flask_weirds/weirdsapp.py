@@ -18,11 +18,7 @@
 
 import flask
 from weirdsmodel import WeirdsDataModel
-
-try:
-	import json
-except ImportError:
-	import simplejson as json
+import json
 
 MIME_TYPE = 'application/rdap'
 SERVER_VERSION = '1.1.0'
