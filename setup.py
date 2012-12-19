@@ -35,6 +35,7 @@ setup(
 	author='Dyn Inc',
 	author_email='hello@dyn.com',
 	description='Flask extension to create WEIRDS applications.',
+	url='https://github.com/dyninc/flask-weirds',
 	long_description=__doc__,
 	packages=['flask_weirds'],
 	include_package_data=True,
