@@ -43,6 +43,10 @@ class DomainFakeModel(weirds.WeirdsDataModel):
 		data['entities'] = weirds.entity(None, 'Internet Assigned Numbers Authority')
 		return data
 
+	def expand_remarks(self, data):
+		data['remarks'] = ["You're very valuable for us and we'll give you all the info."]
+		return data
+
 
 def find_fake_domain(domainname):
 	try:
@@ -96,7 +100,9 @@ def fakedomain(domainname):
 	if auth:
 		if not check_auth(auth.username, auth.password):
 			return ERR_AUTHINVALID
-		domain.push_expand('entities')
+		domain.push_expand('entities')  # # pretend you check permissions here
+		domain.push_expand('remarks')
+
 	return domain
 
 if __name__ == '__main__':
