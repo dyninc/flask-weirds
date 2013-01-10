@@ -18,6 +18,7 @@
 
 import flask
 from weirdsmodel import WeirdsDataModel
+from flask import current_app
 import json
 
 MIME_TYPE = 'application/rdap'

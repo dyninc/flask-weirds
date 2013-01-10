@@ -95,12 +95,12 @@ def check_auth(username, password):
 def fakedomain(domainname):
 	domain = find_fake_domain(domainname)
 	if domain is None:
-		return ERR_OBJECT_NOT_FOUND
+		return ERR_OBJECT_NOT_FOUND  ## do not return None here, it's not handled
 	auth = flask.request.authorization
 	if auth:
 		if not check_auth(auth.username, auth.password):
 			return ERR_AUTHINVALID
-		domain.push_expand('entities')  # # pretend you check permissions here
+		domain.push_expand('entities')  ## pretend you check permissions here
 		domain.push_expand('remarks')
 
 	return domain

@@ -7,7 +7,7 @@ import json
 
 class WeirdsTestCase(unittest.TestCase):
 
-	def assertJSON(self, src, dst):
+	def assertJSON(self, src, dst,  msg=None):
 		if isinstance(src, basestring):
 			src = json.loads(src)
 		if isinstance(dst, basestring):
@@ -15,7 +15,8 @@ class WeirdsTestCase(unittest.TestCase):
 		src = json.dumps(src, sort_keys=True)
 		dst = json.dumps(dst, sort_keys=True)
 		if src != dst:
-			msg = "Results are not same:\n" + src + "\n" + dst + "\n"
+			if msg is None:
+				msg = "Results are not same:\n" + src + "\n" + dst + "\n"
 			for i in range(1,len(src)):
 				if src[0:i] != dst[0:i]:
 					msg += " "*(i-1) + "^^\n"

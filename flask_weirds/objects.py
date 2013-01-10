@@ -21,11 +21,20 @@ def _convertAndAdd(workDict, nonArrayKeys, whatToAdd):
 	for (k, v) in workDict.items():
 		if v is None:
 			del workDict[k]
-		elif nonArrayKeys is not None and k not in nonArrayKeys and not isinstance(v, (list, tuple)):
-
-			# # only convert those elements that not protected
-			# # None means "all protected"
-
+		elif isinstance(v, (list, tuple)):
+			# lists get cleaned for "None" and "" values
+			clean = []
+			for one in v:
+				if one is None or (isinstance(one, basestring) and one == ""):
+					continue
+				clean.append(one)
+			if len(clean) == 0:
+				del workDict[k]
+			elif len(clean) < len(v):
+				workDict[k] = clean
+		elif nonArrayKeys is not None and k not in nonArrayKeys:
+			# only convert those elements that not protected
+			# None means "all protected"
 			workDict[k] = [v]
 	if whatToAdd is not None:
 		for (k, v) in whatToAdd.iteritems():
@@ -123,6 +132,7 @@ def entity(
 
 	if isinstance(phones, basestring):
 		phones = {'office': phones}
+
 	ret = {
 		'handle': handle,
 		'entityNames': entityNames,
