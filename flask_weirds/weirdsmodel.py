@@ -9,7 +9,7 @@
 
     Base data model classes that needs to be used (extended) for flask-weirds application code.
 
-    Copyright (c) 2012, Dynamic Network Services, Inc. All rights reserved.
+    Copyright (c) 2012-2013, Dynamic Network Services, Inc. All rights reserved.
     See the included LICENSE file for licensing information.
 
 """
@@ -37,14 +37,6 @@ class WeirdsDataModel(object):
 		for sub in expandlist:
 			sub(data)
 		return data
-
-
-class WeirdsError(WeirdsDataModel):
-	def __init__(self, errorCode, title=None, description=None, **kw):
-		self.data = errorResponse(errorCode, title, description, **kw)
-
-	def public_data(self):
-		return self.data
 
 
 

@@ -13,7 +13,7 @@
     You can find more info about weirds on the ietf.org working group pages at
     http://datatracker.ietf.org/wg/weirds/
 
-    Copyright (c) 2012, Dynamic Network Services, Inc. All rights reserved.
+    Copyright (c) 2012-2013, Dynamic Network Services, Inc. All rights reserved.
     See the included LICENSE file for licensing information.
 
 """
@@ -21,6 +21,9 @@
 from flask.ext.weirds.objects import *
 from flask.ext.weirds.weirdsapp import *
 from flask.ext.weirds.weirdsmodel import *
+from flask.ext.weirds.weirdserror import *
+
+
 
 __all__ = [
 	'WeirdsResponse',
@@ -37,4 +40,10 @@ __all__ = [
 	'ip',
 	'autnum',
 	'errorResponse',
-	]
+	'ERR_PATH_NOT_FOUND',
+	'ERR_OBJECT_NOT_FOUND',
+	'ERR_OUTAGE',
+	'ERR_AUTHINVALID',
+]
+
+	

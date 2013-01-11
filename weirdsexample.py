@@ -13,26 +13,17 @@
 """
 
 import flask
-import flask.ext.weirds as weirds
+import flask_weirds as weirds
 import sys
 
-# Error messages encoded as tuple {'error':'error info', ...}, "HTTP response code"
-
-ERR_PATH_NOT_FOUND = (weirds.WeirdsError(0xff00, 'Bad Request', 'Invalid object type or path in your request.'), '400 Bad Request')
-ERR_OBJECT_NOT_FOUND = (weirds.WeirdsError(0xff01, 'Not Found', 'Requested object was not found in our database.'), '404 Not Found')
-ERR_OUTAGE = (weirds.WeirdsError(0xff01, 'Internal Error', 'Our systems are not functioning properly at the moment.'), '500 Internal Server Error')
-ERR_AUTHINVALID = (weirds.WeirdsError(0xff03, 'Auth Invalid', 'Please use correct username and password to see authenticated request response.'), '401 Auth Required')
 
 # see module for details about overloads to Flask in that module and tricks we employ
-
 app = weirds.WeirdsApp(__name__)
 app.config.update(BASE_URI='http://weirdshost.example.org')
 
 
 ## This is fake Data Model, do not use it in your application:
-
 class DomainFakeModel(weirds.WeirdsDataModel):
-
 	def __init__(self, name):
 		self.name = name.lower()
 
@@ -70,14 +61,16 @@ def find_fake_domain(domainname):
 ##
 ## and so on...
 
-@app.errorhandler(404)
-def notfound(dummy_e):
-	return ERR_PATH_NOT_FOUND
 
-
-@app.errorhandler(500)
-def crash(dummy_e):
-	return ERR_OUTAGE
+## If you need to override standard errors, use something like this:
+#
+# @app.errorhandler(404)
+# def notfound(dummy_e):
+# 	return ERR_PATH_NOT_FOUND
+#
+# @app.errorhandler(500)
+# def crash(dummy_e):
+# 	return ERR_OUTAGE
 
 
 def check_auth(username, password):
@@ -95,11 +88,11 @@ def check_auth(username, password):
 def fakedomain(domainname):
 	domain = find_fake_domain(domainname)
 	if domain is None:
-		return ERR_OBJECT_NOT_FOUND  ## do not return None here, it's not handled
+		return weirds.ERR_OBJECT_NOT_FOUND
 	auth = flask.request.authorization
 	if auth:
 		if not check_auth(auth.username, auth.password):
-			return ERR_AUTHINVALID
+			return weirds.ERR_AUTHINVALID
 		domain.push_expand('entities')  ## pretend you check permissions here
 		domain.push_expand('remarks')
 
