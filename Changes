@@ -1,5 +1,1 @@
-Thu, Jan 10 2013 v1.1.0
-* final fixes to all the code for a branch
-* added vagrant node and chef provisioning (1/9)
-* refactored to use shared flask-weirds lib (12/20/2012)
-* started working on first version that's worth looking at (12/19/2012)
+* first version that's worth installing (12/19/2012)
