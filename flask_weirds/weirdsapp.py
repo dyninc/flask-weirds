@@ -69,6 +69,7 @@ class WeirdsApp(flask.Flask):
 	def __init__(self, *args, **kw):
 		flask.Flask.__init__(self, *args, **kw)
 		self.register_error_handler(404, lambda x: ERR_PATH_NOT_FOUND)
+		self.register_error_handler(401, lambda x: ERR_AUTHINVALID)
 		self.register_error_handler(500, lambda x: ERR_OUTAGE)
 
 	def make_response(self, rv):
